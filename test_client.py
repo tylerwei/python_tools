@@ -1,4 +1,6 @@
+#!/usr/bin/env python
 #-*- encoding:UTF-8 -*-
+
 import socket,time,sys,getopt
 from optparse import OptionParser
 
