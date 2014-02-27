@@ -5,20 +5,22 @@ from optparse import OptionParser
 
 def main():
     apikey = None
-    url = None
-    usage = "usage: python %prog -a apikey -u url\n       python %prog --apikey apikey --url url"
+    domain = None
+    usage = "usage: python %prog -a apikey -d domain\n       python %prog --apikey apikey --domain \
+domain\n\nexample: python %prog -a my_apikey -d baidu.com"
+
     parser = OptionParser(usage)
     parser.add_option("-a", "--apikey", action="store", type="string", dest="apikey",
             help="input your apikey")
-    parser.add_option("-u", "--url", action="store", type="string", dest="url",
-            help="input the report url")
+    parser.add_option("-d", "--domain", action="store", type="string", dest="domain",
+            help="input the report host")
     (options, args) = parser.parse_args()
     if len(sys.argv) != 5:
-        parser.error("incorrect number of arguments")
+        parser.error("incorrect arguments")
     apikey = options.apikey
-    url = options.url
+    domain = options.domain
     try:
-        HOST = socket.gethostbyname(url)
+        HOST = socket.gethostbyname(domain)
     except:
         print "Please check your settings of dns\n"
         exit(1)
@@ -38,7 +40,9 @@ def main():
         recv = sock.recv(BUFFER)
         print "Network is Ok, recv is :%s" % recv
     except:
-        print "Please check your network, can't connect to localhost"
+        print "Please check your argments or network or dns settings,\n \
+The ip of [%s] is:%s, \
+can't connect to localhost" % (domain, HOST)
     sock.close()
 
 if __name__ == '__main__':
